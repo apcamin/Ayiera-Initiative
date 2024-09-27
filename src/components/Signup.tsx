@@ -2,7 +2,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import formSchema from "@/schemas/formSchema.jsx";
+import signupSchema from "@/schemas/signupSchema.jsx";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,23 +16,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Link } from "@tanstack/react-router";
 
-function Login() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+function Signup() {
+  const form = useForm<z.infer<typeof signupSchema>>({
+    resolver: zodResolver(signupSchema),
     defaultValues: {
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof signupSchema>) {
     console.log(values);
   }
 
   return (
     <Form {...form}>
       <div className="grid gap-6">
-        <p className="text-4xl font-bold">Welcome Back</p>
+        <p className="text-4xl font-bold">Create an Account</p>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
             control={form.control}
@@ -64,14 +65,31 @@ function Login() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="bg-green-800 w-full h-12">
-            Submit
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Confirm your password"
+                    {...field} className="h-11"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="bg-green-800 h-12 w-full">
+            Sign Up
           </Button>
         </form>
         <div className="flex gap-2 justify-center">
-          <p>Don't have an account?</p>
-          <Link to="/signup" className="text-green-800">
-            Sign Up
+          <p>Already have an account?</p>
+          <Link to="/" className="text-green-800">
+            Log In
           </Link>
         </div>
       </div>
@@ -79,4 +97,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
