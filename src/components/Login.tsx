@@ -32,7 +32,7 @@ function Login() {
   return (
     <Form {...form}>
       <div className="grid gap-6">
-        <p className="text-4xl font-bold">Welcome Back</p>
+        <p className="text-4xl font-bold text-slate-800">Welcome Back</p>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
             control={form.control}
@@ -41,7 +41,11 @@ function Login() {
               <FormItem>
                 <FormLabel>Email Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your email" {...field} className="h-11" />
+                  <Input
+                    placeholder="Enter your email"
+                    {...field}
+                    className="h-11"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -57,7 +61,8 @@ function Login() {
                   <Input
                     type="password"
                     placeholder="Enter your password"
-                    {...field} className="h-11"
+                    {...field}
+                    className="h-11"
                   />
                 </FormControl>
                 <FormMessage />
@@ -65,7 +70,7 @@ function Login() {
             )}
           />
           <Button type="submit" className="bg-green-800 w-full h-12">
-            Submit
+            Login
           </Button>
         </form>
         <div className="flex gap-2 justify-center">

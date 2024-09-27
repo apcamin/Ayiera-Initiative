@@ -33,7 +33,7 @@ function Signup() {
   return (
     <Form {...form}>
       <div className="grid gap-6">
-        <p className="text-4xl font-bold">Create an Account</p>
+        <p className="text-4xl font-bold text-slate-800">Create an Account</p>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
             control={form.control}
