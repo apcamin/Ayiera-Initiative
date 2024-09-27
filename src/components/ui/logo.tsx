@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AILogo from "@/assets/A.I.-logo.png";
+import AILogo from "@/assets/AILOGO.svg";
 
 interface LogoProps {
   alt?: string;

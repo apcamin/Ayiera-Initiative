@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Logo from "@/components/ui/logo";
 
 const DropDownMenu = ({ trigger }) => {
   return (
@@ -38,8 +39,15 @@ const UserImage = () => {
 
 function Header(props) {
   return (
-    <header className="px-6 py-4 bg-red-100">
-      <DropDownMenu trigger={<UserImage />} />
+    <header className="px-6 py-4 relative border-b-2 flex items-center">
+      <section>
+        <div className="w-15 h-max bg-red-100">
+          <Logo />
+        </div>
+      </section>
+      <section className="ml-auto w-max h-max">
+        <DropDownMenu trigger={<UserImage />} />
+      </section>
     </header>
   );
 }

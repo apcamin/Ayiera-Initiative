@@ -11,7 +11,7 @@ function LoginPage() {
   return (
     <div className="h-screen flex justify-center items-center">
       <div className='absolute top-10 left-10'>
-        <Logo text="Ayiera Initiative" />
+        <Logo />
       </div>
       <div className="h-max w-1/4">
         <Login />
