@@ -20,10 +20,10 @@ const DropDownMenu = ({ trigger }) => {
     <DropdownMenu>
       <DropdownMenuTrigger>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <button>Logout</button>
+          <button className="text-red-600">Logout &rarr;</button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
