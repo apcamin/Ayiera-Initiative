@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import AILOGO_Plain from "@/assets/AILOGO.svg";
 import MenuIcon from "@/assets/MenuIcon.svg";
+import MenuList from "@/assets/menu_list.svg"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,11 +33,7 @@ const DropDownMenu = ({ trigger }) => {
 const UserImage = () => {
   return (
     <div className="flex gap-2 items-center">
-      <Avatar className=" w-6 h-6">
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>AD</AvatarFallback>
-      </Avatar>
-      <p>Admin</p>
+      <Logo src={MenuList} width="4" text="Admin" />
     </div>
   );
 };

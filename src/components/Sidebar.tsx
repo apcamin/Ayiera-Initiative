@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from '@tanstack/react-router';
 import Logo from './ui/logo';
-import AILOGO_NOICON from "@/assets/AILOGO.svg"
+import AILOGO from "@/assets/AILOGO.svg"
 import {
   Sheet,
   SheetContent,
@@ -17,7 +17,7 @@ const SideBarComponents = ({trigger}) => {
         <SheetTrigger>{trigger}</SheetTrigger>
         <SheetContent side="left" className="w-1/5">
           <div className='flex flex-col gap-10'>
-            <Logo src={AILOGO_NOICON} />
+            <Logo src={AILOGO} />
             <section className='flex flex-col gap-6'>
               <p className="text-sm text-gray-600">Navigation</p>
               <Link to="/dashboard" className="flex gap-2">

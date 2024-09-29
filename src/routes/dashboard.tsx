@@ -12,7 +12,6 @@ function AdminDashboard() {
             <section>
                 <Header />
             </section>
-            <p>Admin Dashboard</p>
         </main>
     )
 }
