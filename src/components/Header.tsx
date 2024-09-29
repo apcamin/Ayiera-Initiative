@@ -40,7 +40,7 @@ const UserImage = () => {
 
 function Header(props) {
   return (
-    <header className="px-6 py-4 relative border-b-2 flex items-center">
+    <header className="px-6 py-4 relative border-b-[1px] flex items-center border-gray-100">
       <section className="flex items-center">
         <div className="flex items-center">
           <Sidebar trigger={<Logo src={MenuIcon} width="6" height="6" />} />
