@@ -44,9 +44,9 @@ const UserImage = () => {
 function Header(props) {
   return (
     <header className="px-6 py-4 relative border-b-2 flex items-center">
-      <section className="flex items-center gap-2">
+      <section className="flex items-center">
         <div className="flex items-center">
-          <Sidebar trigger={<Logo src={MenuIcon} />} />
+          <Sidebar trigger={<Logo src={MenuIcon} width="6" height="6" />} />
         </div>
         <div className="w-15 h-max">
           <Logo src={AILOGO_Plain} />

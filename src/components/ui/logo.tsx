@@ -9,7 +9,7 @@ interface LogoProps {
   text?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ src = AILogo, alt = '', width = '8', height = '8', text = '' }) => {
+const Logo: React.FC<LogoProps> = ({ src = AILogo, alt = '', width = '', height = '', text = '' }) => {
   const imgSrc = typeof src === 'string' ? src : AILogo;
 
   return (
