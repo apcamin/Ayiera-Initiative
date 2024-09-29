@@ -64,3 +64,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+    font-family: 'Inter';
+    src: url('assets/Inter.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
