@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import AILOGO_Plain from "@/assets/AILOGO.svg";
+import MenuIcon from "@/assets/MenuIcon.svg";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -43,15 +45,11 @@ function Header(props) {
   return (
     <header className="px-6 py-4 relative border-b-2 flex items-center">
       <section className="flex items-center gap-2">
-        <Sidebar
-          trigger={
-            <Button className="bg-[#f5f5f5]text-2xl text-black hover:text-white px-2 py-2 h-max leading-none">
-              <kbd>&#9776;</kbd>
-            </Button>
-          }
-        />
+        <div className="flex items-center">
+          <Sidebar trigger={<Logo src={MenuIcon} />} />
+        </div>
         <div className="w-15 h-max">
-          <Logo />
+          <Logo src={AILOGO_Plain} />
         </div>
       </section>
       <section className="ml-auto w-max h-max">
