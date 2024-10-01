@@ -15,7 +15,9 @@ import { Route as UsersImport } from './routes/users'
 import { Route as SignupImport } from './routes/signup'
 import { Route as ProfileImport } from './routes/profile'
 import { Route as DashboardImport } from './routes/dashboard'
-import { Route as AdminLoginImport } from './routes/adminLogin'
+import { Route as LoginPageImport } from './routes/LoginPage'
+import { Route as FallBackImport } from './routes/FallBack'
+import { Route as AdminLoginPageImport } from './routes/AdminLoginPage'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -40,8 +42,18 @@ const DashboardRoute = DashboardImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AdminLoginRoute = AdminLoginImport.update({
-  path: '/adminLogin',
+const LoginPageRoute = LoginPageImport.update({
+  path: '/LoginPage',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FallBackRoute = FallBackImport.update({
+  path: '/FallBack',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AdminLoginPageRoute = AdminLoginPageImport.update({
+  path: '/AdminLoginPage',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -61,11 +73,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/adminLogin': {
-      id: '/adminLogin'
-      path: '/adminLogin'
-      fullPath: '/adminLogin'
-      preLoaderRoute: typeof AdminLoginImport
+    '/AdminLoginPage': {
+      id: '/AdminLoginPage'
+      path: '/AdminLoginPage'
+      fullPath: '/AdminLoginPage'
+      preLoaderRoute: typeof AdminLoginPageImport
+      parentRoute: typeof rootRoute
+    }
+    '/FallBack': {
+      id: '/FallBack'
+      path: '/FallBack'
+      fullPath: '/FallBack'
+      preLoaderRoute: typeof FallBackImport
+      parentRoute: typeof rootRoute
+    }
+    '/LoginPage': {
+      id: '/LoginPage'
+      path: '/LoginPage'
+      fullPath: '/LoginPage'
+      preLoaderRoute: typeof LoginPageImport
       parentRoute: typeof rootRoute
     }
     '/dashboard': {
@@ -103,7 +129,9 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/adminLogin': typeof AdminLoginRoute
+  '/AdminLoginPage': typeof AdminLoginPageRoute
+  '/FallBack': typeof FallBackRoute
+  '/LoginPage': typeof LoginPageRoute
   '/dashboard': typeof DashboardRoute
   '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
@@ -112,7 +140,9 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/adminLogin': typeof AdminLoginRoute
+  '/AdminLoginPage': typeof AdminLoginPageRoute
+  '/FallBack': typeof FallBackRoute
+  '/LoginPage': typeof LoginPageRoute
   '/dashboard': typeof DashboardRoute
   '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
@@ -122,7 +152,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/adminLogin': typeof AdminLoginRoute
+  '/AdminLoginPage': typeof AdminLoginPageRoute
+  '/FallBack': typeof FallBackRoute
+  '/LoginPage': typeof LoginPageRoute
   '/dashboard': typeof DashboardRoute
   '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
@@ -133,17 +165,29 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/adminLogin'
+    | '/AdminLoginPage'
+    | '/FallBack'
+    | '/LoginPage'
     | '/dashboard'
     | '/profile'
     | '/signup'
     | '/users'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/adminLogin' | '/dashboard' | '/profile' | '/signup' | '/users'
+  to:
+    | '/'
+    | '/AdminLoginPage'
+    | '/FallBack'
+    | '/LoginPage'
+    | '/dashboard'
+    | '/profile'
+    | '/signup'
+    | '/users'
   id:
     | '__root__'
     | '/'
-    | '/adminLogin'
+    | '/AdminLoginPage'
+    | '/FallBack'
+    | '/LoginPage'
     | '/dashboard'
     | '/profile'
     | '/signup'
@@ -153,7 +197,9 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminLoginRoute: typeof AdminLoginRoute
+  AdminLoginPageRoute: typeof AdminLoginPageRoute
+  FallBackRoute: typeof FallBackRoute
+  LoginPageRoute: typeof LoginPageRoute
   DashboardRoute: typeof DashboardRoute
   ProfileRoute: typeof ProfileRoute
   SignupRoute: typeof SignupRoute
@@ -162,7 +208,9 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminLoginRoute: AdminLoginRoute,
+  AdminLoginPageRoute: AdminLoginPageRoute,
+  FallBackRoute: FallBackRoute,
+  LoginPageRoute: LoginPageRoute,
   DashboardRoute: DashboardRoute,
   ProfileRoute: ProfileRoute,
   SignupRoute: SignupRoute,
@@ -182,7 +230,9 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/adminLogin",
+        "/AdminLoginPage",
+        "/FallBack",
+        "/LoginPage",
         "/dashboard",
         "/profile",
         "/signup",
@@ -192,8 +242,14 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
-    "/adminLogin": {
-      "filePath": "adminLogin.tsx"
+    "/AdminLoginPage": {
+      "filePath": "AdminLoginPage.tsx"
+    },
+    "/FallBack": {
+      "filePath": "FallBack.tsx"
+    },
+    "/LoginPage": {
+      "filePath": "LoginPage.tsx"
     },
     "/dashboard": {
       "filePath": "dashboard.tsx"

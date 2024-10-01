@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Link } from "@tanstack/react-router";
 
-function Login({title = "Welcome Back"}) {
+function AdminLogin() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,7 +32,7 @@ function Login({title = "Welcome Back"}) {
   return (
     <Form {...form}>
       <div className="grid gap-6">
-        <p className="text-4xl font-bold text-slate-800">{ title}</p>
+        <p className="text-4xl font-bold text-slate-800">Administrator Sign-In</p>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
             control={form.control}
@@ -70,18 +70,12 @@ function Login({title = "Welcome Back"}) {
             )}
           />
           <Button type="submit" className="bg-green-800 w-full h-12">
-            Login
+            Login and continue
           </Button>
-        </form>
-        <div className="flex gap-2 justify-center">
-          <p>Don't have an account?</p>
-          <Link to="/signup" className="text-green-800">
-            Sign Up
-          </Link>
-        </div>
+        </form>        
       </div>
     </Form>
   );
 }
 
-export default Login;
+export default AdminLogin;

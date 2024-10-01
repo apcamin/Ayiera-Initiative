@@ -67,7 +67,7 @@ export default function Footer() {
                 href=""
                 className="text-sm font-semibold leading-6 text-gray-300 hover:text-white"
               >
-                <Link to="/adminLogin">Admin Portal</Link>
+                <Link to="/AdminLoginPage">Admin Portal</Link>
               </a>
             </div>
           </div>
