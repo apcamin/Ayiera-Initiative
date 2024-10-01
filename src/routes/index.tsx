@@ -1,21 +1,15 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import * as React from 'react'
-import Login from '@/components/Login'
-import Logo from '@/components/ui/logo'
+import {Footer, SupportUs, Projects, Founders, LandingPage} from '@/components'
 
-export const Route = createFileRoute('/')({
-  component: () => <LoginPage />,
-})
-
-function LoginPage() {
-  return (
-    <div className="h-screen flex justify-center items-center">
-      <div className='absolute top-10 left-10'>
-        <Logo />
-      </div>
-      <div className="h-max w-1/4">
-        <Login />
-      </div>
-    </div>
-  );
-}
+export const Route = createFileRoute("/")({
+  component: () => (
+    <>
+      <LandingPage />
+      <Projects />
+      <Founders />
+      <SupportUs />
+      <Footer />
+    </>
+  ),
+});
