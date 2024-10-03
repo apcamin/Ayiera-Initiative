@@ -6,31 +6,32 @@ import {
   slum_team,
   ayiera_initiative,
   education_program,
+  Slum_Footie_Tournament_2024,
+  coach,
+  comedy_break,
 } from "@/assets/projects";
 
 const callouts = [
   {
-    name: "Kid in school",
-    description: "Empowering children through education",
-    imageSrc: education,
-    imageAlt:
-      "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.",
+    name: "Football Tournament",
+    description: "Annual football tournament for community engagement",
+    imageSrc: Slum_Footie_Tournament_2024,
+    imageAlt: "Players in action during a football match.",
     href: "https://ayiera-initiative.org/2024/07/27/slum-footie-tournament-2024/",
   },
   {
-    name: "Home visits",
-    description: "Feeding the needy in our community",
-    imageSrc: relief_food,
-    imageAlt:
-      "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.",
-    href: "https://ayiera-initiative.org/2024/07/02/tag-fur-korogocho-2024/",
+    name: "Football Coaching Clinic",
+    description: "Training sessions for aspiring football players",
+    imageSrc: coach,
+    imageAlt: "Coach instructing young football players.",
+    href: "https://ayiera-initiative.org/2024/07/02/football-coaching-clinic-2024/",
   },
   {
-    name: "Education",
-    description: "Providing civic education about health",
-    imageSrc: slum_team,
-    imageAlt: "Collection of four insulated travel bottles on wooden shelf.",
-    href: "https://ayiera-initiative.org/2024/01/20/we-are-100-energy-efficient/",
+    name: "Comedy Break",
+    description: "Comedy sessions to keep attendants occupied during the match half-time break",
+    imageSrc: comedy_break,
+    imageAlt: "Comedian performing during a break.",
+    href: "https://ayiera-initiative.org/2024/01/20/comedy-break-2024/",
   },
 ];
 
