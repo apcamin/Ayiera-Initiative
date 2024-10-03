@@ -1,39 +1,5 @@
 import * as React from "react"
-
-import { brian, eric, george, isaiah, judy, teddy } from "@/assets/team";
-
-const people = [
-  {
-    name: "Eric Michael Onyango",
-    role: "Chairman of AYiERA iNiTiATiVE",
-    imageUrl: eric,
-  },
-  {
-    name: "Isaiah Onyango",
-    role: "Head of events",
-    imageUrl: isaiah,
-  },
-  {
-    name: "Judy",
-    role: "The secretary",
-    imageUrl: judy,
-  },
-  {
-    name: "George Omondi",
-    role: "Team supporter since 2007",
-    imageUrl: george,
-  },
-  {
-    name: "Brian Onyango",
-    role: "Accountant & communications coordinator",
-    imageUrl: brian,
-  },
-  {
-    name: "Teddy Omondi",
-    role: "Head of sports",
-    imageUrl: teddy,
-  },
-];
+import {founders} from "@/data/foundersData"
 
 export default function Founders() {
   return (
@@ -52,20 +18,20 @@ export default function Founders() {
           role="list"
           className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
         >
-          {people.map((person) => (
-            <li key={person.name}>
+          {founders.map((founder) => (
+            <li key={founder.name}>
               <div className="flex items-center gap-x-6">
                 <img
                   alt=""
-                  src={person.imageUrl}
+                  src={founder.imageUrl}
                   className="h-16 w-16 rounded-full object-cover"
                 />
                 <div>
                   <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
-                    {person.name}
+                    {founder.name}
                   </h3>
                   <p className="text-sm font-semibold leading-6 text-indigo-600">
-                    {person.role}
+                    {founder.role}
                   </p>
                 </div>
               </div>
