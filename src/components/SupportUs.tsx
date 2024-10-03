@@ -8,10 +8,10 @@ import {
 } from "@/assets/projects";
 
 const stats = [
-  { name: "Children Educated", value: "1500+" },
-  { name: "Meals Provided", value: "50000+" },
   { name: "Sports Events Held", value: "200+" },
-  { name: "Volunteers", value: "300+" },
+  { name: "Youth Engaged", value: "1000+" },
+  { name: "Teams Formed", value: "50+" },
+  { name: "Tournaments Won", value: "30+" },
 ];
 
 export default function SupportUs() {

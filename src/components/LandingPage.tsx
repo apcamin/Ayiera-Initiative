@@ -67,8 +67,10 @@ export default function LandingPage() {
               href="#"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
-              <Link to="/LoginPage"> Log in </Link>
-              <span aria-hidden="true">&rarr;</span>
+              <Link to="/LoginPage">
+                Log in
+                <span aria-hidden="true">&rarr;</span>
+              </Link>
             </a>
           </div>
         </nav>
@@ -156,9 +158,8 @@ export default function LandingPage() {
             </h1>
             <p className="mt-6 text-lg leading-loose text-gray-600">
               Ayiera Initiative is dedicated to empowering underprivileged youth
-              through sports, education, and mentorship programs. Based in the
-              slums of Kenya, the organization fosters talent development and
-              life skills.
+              through sport programs. Based in the slums of Kenya, the
+              organization fosters talent development and life skills.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
