@@ -1,13 +1,9 @@
 import * as React from 'react';
 import { Link } from '@tanstack/react-router';
-import Logo from './ui/logo';
+import Logo from '@/components/ui/logo';
 import {
   users_icon,
   dashboard_icon,
-  tournament_icon,
-  progress_icon,
-  communications_icon,
-  awards_icon,
   feedback_icon,
   AILOGO,
 } from "@/assets/icons";
@@ -36,22 +32,6 @@ const SideBarComponents = ({trigger}) => {
               <Link to="/users" className="flex gap-2">
                 <img src={users_icon} alt="" />
                 Users
-              </Link>
-              <Link to="/users" className="flex gap-2">
-                <img src={tournament_icon} alt="" />
-                Tournaments
-              </Link>
-              <Link to="/users" className="flex gap-2">
-                <img src={progress_icon} alt="" />
-                Progress
-              </Link>
-              <Link to="/users" className="flex gap-2">
-                <img src={communications_icon} alt="" />
-                Communications
-              </Link>
-              <Link to="/users" className="flex gap-2">
-                <img src={awards_icon} alt="" />
-                Awards
               </Link>
               <Link to="/feedback" className="flex gap-2">
                 <img src={feedback_icon} alt="" />

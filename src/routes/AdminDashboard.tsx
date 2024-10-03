@@ -1,9 +1,9 @@
-import Header from '@/components/Header'
+import Header from '@/components/admin/Header'
 import { createFileRoute } from '@tanstack/react-router'
-import * as React from "react"
-import { supabase } from "@/backend/client.js";
-import {ChartComponent} from "@/components/ChartComponent"
-import { LineGraph } from "@/components/LineGraph";
+import * as React from 'react'
+import { supabase } from '@/backend/client.js'
+import { ChartComponent } from '@/components/ChartComponent'
+import { LineGraph } from '@/components/LineGraph'
 import {
   Card,
   CardContent,
@@ -11,12 +11,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+} from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 
-export const Route = createFileRoute("/dashboard")({
-  component: () => <Dashboard />,
-});
+export const Route = createFileRoute('/AdminDashboard')({
+  component: () => <AdminDashboard />,
+})
 
 function CardComponent({
   title,
@@ -24,10 +24,10 @@ function CardComponent({
   footer,
   badgeText,
 }: {
-  title: string;
-  content: string;
-  footer?: string;
-  badgeText?: string;
+  title: string
+  content: string
+  footer?: string
+  badgeText?: string
 }) {
   return (
     <Card className="shadow-none">
@@ -36,20 +36,20 @@ function CardComponent({
       </CardHeader>
       <CardContent className="flex items-center gap-4">
         <h1 className="text-4xl">{content}</h1>
-        {badgeText == "increase" ? (
+        {badgeText == 'increase' ? (
           <Badge className="bg-green-600">Increase ↗</Badge>
         ) : (
-            <Badge className="bg-red-600">Decrease ↙</Badge>
+          <Badge className="bg-red-600">Decrease ↙</Badge>
         )}
       </CardContent>
       <CardFooter>
         <p className="text-zinc-400 py-[-6rem] text-sm">{footer}</p>
       </CardFooter>
     </Card>
-  );
+  )
 }
 
-function Dashboard() {
+function AdminDashboard() {
   return (
     <main>
       <section className="sticky top-0 bg-white">
@@ -77,13 +77,13 @@ function Dashboard() {
             badgeText="increase"
           />
         </div>
-        <div className='grid md:grid-cols-3 gap-6'>
+        <div className="grid md:grid-cols-3 gap-6">
           <div className="col-span-2">
             <ChartComponent />
           </div>
-          <LineGraph/>
+          <LineGraph />
         </div>
       </section>
     </main>
-  );
+  )
 }

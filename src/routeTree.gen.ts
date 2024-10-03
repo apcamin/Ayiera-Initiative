@@ -19,6 +19,7 @@ import { Route as DashboardImport } from './routes/dashboard'
 import { Route as LoginPageImport } from './routes/LoginPage'
 import { Route as FallBackImport } from './routes/FallBack'
 import { Route as AdminLoginPageImport } from './routes/AdminLoginPage'
+import { Route as AdminDashboardImport } from './routes/AdminDashboard'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -63,6 +64,11 @@ const AdminLoginPageRoute = AdminLoginPageImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AdminDashboardRoute = AdminDashboardImport.update({
+  path: '/AdminDashboard',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -77,6 +83,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/AdminDashboard': {
+      id: '/AdminDashboard'
+      path: '/AdminDashboard'
+      fullPath: '/AdminDashboard'
+      preLoaderRoute: typeof AdminDashboardImport
       parentRoute: typeof rootRoute
     }
     '/AdminLoginPage': {
@@ -142,6 +155,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/AdminDashboard': typeof AdminDashboardRoute
   '/AdminLoginPage': typeof AdminLoginPageRoute
   '/FallBack': typeof FallBackRoute
   '/LoginPage': typeof LoginPageRoute
@@ -154,6 +168,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/AdminDashboard': typeof AdminDashboardRoute
   '/AdminLoginPage': typeof AdminLoginPageRoute
   '/FallBack': typeof FallBackRoute
   '/LoginPage': typeof LoginPageRoute
@@ -167,6 +182,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/AdminDashboard': typeof AdminDashboardRoute
   '/AdminLoginPage': typeof AdminLoginPageRoute
   '/FallBack': typeof FallBackRoute
   '/LoginPage': typeof LoginPageRoute
@@ -181,6 +197,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/AdminDashboard'
     | '/AdminLoginPage'
     | '/FallBack'
     | '/LoginPage'
@@ -192,6 +209,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/AdminDashboard'
     | '/AdminLoginPage'
     | '/FallBack'
     | '/LoginPage'
@@ -203,6 +221,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/AdminDashboard'
     | '/AdminLoginPage'
     | '/FallBack'
     | '/LoginPage'
@@ -216,6 +235,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
   AdminLoginPageRoute: typeof AdminLoginPageRoute
   FallBackRoute: typeof FallBackRoute
   LoginPageRoute: typeof LoginPageRoute
@@ -228,6 +248,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
   AdminLoginPageRoute: AdminLoginPageRoute,
   FallBackRoute: FallBackRoute,
   LoginPageRoute: LoginPageRoute,
@@ -251,6 +272,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/AdminDashboard",
         "/AdminLoginPage",
         "/FallBack",
         "/LoginPage",
@@ -263,6 +285,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/AdminDashboard": {
+      "filePath": "AdminDashboard.tsx"
     },
     "/AdminLoginPage": {
       "filePath": "AdminLoginPage.tsx"
