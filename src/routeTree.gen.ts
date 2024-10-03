@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as UsersImport } from './routes/users'
 import { Route as SignupImport } from './routes/signup'
 import { Route as ProfileImport } from './routes/profile'
+import { Route as FeedbackImport } from './routes/feedback'
 import { Route as DashboardImport } from './routes/dashboard'
 import { Route as LoginPageImport } from './routes/LoginPage'
 import { Route as FallBackImport } from './routes/FallBack'
@@ -34,6 +35,11 @@ const SignupRoute = SignupImport.update({
 
 const ProfileRoute = ProfileImport.update({
   path: '/profile',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FeedbackRoute = FeedbackImport.update({
+  path: '/feedback',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -101,6 +107,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardImport
       parentRoute: typeof rootRoute
     }
+    '/feedback': {
+      id: '/feedback'
+      path: '/feedback'
+      fullPath: '/feedback'
+      preLoaderRoute: typeof FeedbackImport
+      parentRoute: typeof rootRoute
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -133,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/FallBack': typeof FallBackRoute
   '/LoginPage': typeof LoginPageRoute
   '/dashboard': typeof DashboardRoute
+  '/feedback': typeof FeedbackRoute
   '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
   '/users': typeof UsersRoute
@@ -144,6 +158,7 @@ export interface FileRoutesByTo {
   '/FallBack': typeof FallBackRoute
   '/LoginPage': typeof LoginPageRoute
   '/dashboard': typeof DashboardRoute
+  '/feedback': typeof FeedbackRoute
   '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
   '/users': typeof UsersRoute
@@ -156,6 +171,7 @@ export interface FileRoutesById {
   '/FallBack': typeof FallBackRoute
   '/LoginPage': typeof LoginPageRoute
   '/dashboard': typeof DashboardRoute
+  '/feedback': typeof FeedbackRoute
   '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
   '/users': typeof UsersRoute
@@ -169,6 +185,7 @@ export interface FileRouteTypes {
     | '/FallBack'
     | '/LoginPage'
     | '/dashboard'
+    | '/feedback'
     | '/profile'
     | '/signup'
     | '/users'
@@ -179,6 +196,7 @@ export interface FileRouteTypes {
     | '/FallBack'
     | '/LoginPage'
     | '/dashboard'
+    | '/feedback'
     | '/profile'
     | '/signup'
     | '/users'
@@ -189,6 +207,7 @@ export interface FileRouteTypes {
     | '/FallBack'
     | '/LoginPage'
     | '/dashboard'
+    | '/feedback'
     | '/profile'
     | '/signup'
     | '/users'
@@ -201,6 +220,7 @@ export interface RootRouteChildren {
   FallBackRoute: typeof FallBackRoute
   LoginPageRoute: typeof LoginPageRoute
   DashboardRoute: typeof DashboardRoute
+  FeedbackRoute: typeof FeedbackRoute
   ProfileRoute: typeof ProfileRoute
   SignupRoute: typeof SignupRoute
   UsersRoute: typeof UsersRoute
@@ -212,6 +232,7 @@ const rootRouteChildren: RootRouteChildren = {
   FallBackRoute: FallBackRoute,
   LoginPageRoute: LoginPageRoute,
   DashboardRoute: DashboardRoute,
+  FeedbackRoute: FeedbackRoute,
   ProfileRoute: ProfileRoute,
   SignupRoute: SignupRoute,
   UsersRoute: UsersRoute,
@@ -234,6 +255,7 @@ export const routeTree = rootRoute
         "/FallBack",
         "/LoginPage",
         "/dashboard",
+        "/feedback",
         "/profile",
         "/signup",
         "/users"
@@ -253,6 +275,9 @@ export const routeTree = rootRoute
     },
     "/dashboard": {
       "filePath": "dashboard.tsx"
+    },
+    "/feedback": {
+      "filePath": "feedback.tsx"
     },
     "/profile": {
       "filePath": "profile.tsx"
