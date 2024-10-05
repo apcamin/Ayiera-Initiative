@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Link } from "@tanstack/react-router";
 
-function Login() {
+function Login({title = "Welcome Back"}) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,7 +32,7 @@ function Login() {
   return (
     <Form {...form}>
       <div className="grid gap-6">
-        <p className="text-4xl font-bold text-slate-800">Welcome Back</p>
+        <p className="text-4xl font-bold text-slate-800">{ title}</p>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
             control={form.control}

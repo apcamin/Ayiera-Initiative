@@ -42,7 +42,11 @@ function Signup() {
               <FormItem>
                 <FormLabel>Email Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your email" {...field} className="h-11" />
+                  <Input
+                    placeholder="Enter your email"
+                    {...field}
+                    className="h-11"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -58,7 +62,8 @@ function Signup() {
                   <Input
                     type="password"
                     placeholder="Enter your password"
-                    {...field} className="h-11"
+                    {...field}
+                    className="h-11"
                   />
                 </FormControl>
                 <FormMessage />
@@ -75,7 +80,8 @@ function Signup() {
                   <Input
                     type="password"
                     placeholder="Confirm your password"
-                    {...field} className="h-11"
+                    {...field}
+                    className="h-11"
                   />
                 </FormControl>
                 <FormMessage />
@@ -88,7 +94,7 @@ function Signup() {
         </form>
         <div className="flex gap-2 justify-center">
           <p>Already have an account?</p>
-          <Link to="/" className="text-green-800">
+          <Link to="/LoginPage" className="text-green-800">
             Log In
           </Link>
         </div>

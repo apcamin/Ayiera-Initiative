@@ -33,7 +33,7 @@ const DropDownMenu = ({ trigger }) => {
 const UserImage = () => {
   return (
     <div className="flex gap-2 items-center">
-      <Logo src={MenuList} width="4" text="Admin" />
+      <Logo src={MenuList} width="4" text="Telvin Otieno" />
     </div>
   );
 };
@@ -42,8 +42,8 @@ function Header(props) {
   return (
     <header className="px-6 py-4 relative border-b-[1px] flex items-center border-gray-100">
       <section className="flex items-center">
-        <div className="flex items-center">
-          <Sidebar trigger={<Logo src={MenuIcon} width="6" height="6" />} />
+        <div className="flex items-center scale-75">
+          <Sidebar trigger={<Logo src={MenuIcon} width="8" height="8" />} />
         </div>
         <div className="w-15 h-max">
           <Logo src={AILOGO_Plain} />

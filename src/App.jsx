@@ -1,7 +1,13 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
+import FallBack from "@/routes/FallBack"
 
-const router = createRouter({routeTree});
+const router = createRouter({
+  routeTree,
+  defaultNotFoundComponent: () => {
+    return <FallBack />;
+  },
+});
 
 
 function App() {
