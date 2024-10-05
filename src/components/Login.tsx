@@ -1,22 +1,25 @@
-import * as React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import formSchema from "@/schemas/formSchema.jsx";
+import { supabase } from "@/backend/client";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/hooks/use-toast";
+import formSchema from "@/schemas/formSchema.jsx";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
+import * as React from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 function Login({title = "Welcome Back"}) {
+  const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -24,14 +27,42 @@ function Login({title = "Welcome Back"}) {
       password: "",
     },
   });
+  async function onSubmit(values: z.infer<typeof formSchema>) {
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    const email = values.email
+    const password = values.password
+        
+    const { data: user, error } = await supabase.from("administrator").select("*")
+    if (error) {
+      console.error(error)
+    } else {
+      if(user[0].Email !== email){
+        toast({
+          variant: "destructive",
+          title: "User or Password not found",
+          description: "Please try again.",
+          duration: 3000,
+        })
+        return
+      }
+      if(user[0].Password === password) {
+        console.log("User authenticated successfully")
+        window.location.href = "/dashboard"
+        return
+      }
+      toast({
+        variant: "destructive",
+        title: "User or Password not found",
+        description: "Please try again.",
+        duration: 3000,
+      })
+    }
   }
 
   return (
     <Form {...form}>
       <div className="grid gap-6">
+        <Toaster />
         <p className="text-4xl font-bold text-slate-800">{ title}</p>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
