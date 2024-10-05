@@ -7,7 +7,7 @@ export const Route = createFileRoute('/LoginPage')({
   component: () => <LoginPage />,
 })
 
-function LoginPage() {
+export function LoginPage() {
   return (
     <div className="h-screen flex justify-center items-center">
       <div className="absolute top-10 left-10">
