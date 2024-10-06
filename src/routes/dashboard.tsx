@@ -1,18 +1,16 @@
-import Header from '@/components/Header'
-import { createFileRoute } from '@tanstack/react-router'
-import * as React from "react"
-import { supabase } from "@/backend/client.js";
-import {ChartComponent} from "@/components/ChartComponent"
+import { ChartComponent } from "@/components/ChartComponent";
+import Header from '@/components/Header';
 import { LineGraph } from "@/components/LineGraph";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle
+} from "@/components/ui/card";
+import { createFileRoute } from '@tanstack/react-router';
+import * as React from "react";
 
 export const Route = createFileRoute("/dashboard")({
   component: () => <Dashboard />,
@@ -59,7 +57,7 @@ function Dashboard() {
         <h1 className="text-xl font-bold tracking-tight text-gray-900">
           Dashboard
         </h1>
-        <div className="grid md:grid-cols-3 gap-6 overflow-scroll">
+        <div className="grid md:grid-cols-3 gap-6 overflow-auto">
           <CardComponent
             title="Total Users"
             content="12,000"
