@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import * as React from "react";
 import Header from "@/components/Header";
-import {TableComponent} from "@/components/TableComponent"
+import {UserTable} from "@/components/table/user"
 
 export const Route = createFileRoute("/users")({
   component: () => <Users />,
@@ -17,7 +17,7 @@ function Users() {
         <h1 className="text-xl font-bold tracking-tight text-gray-900">
           Users
         </h1>
-        <TableComponent />
+        <UserTable />
       </section>
     </main>
   );
