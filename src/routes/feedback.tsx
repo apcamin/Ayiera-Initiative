@@ -11,6 +11,7 @@ export default function FeedbackPage() {
     return (
       <main>
         <section className="sticky top-0 bg-white">
+          
           <Header />
         </section>
         <section className="px-6 pt-6 flex flex-col gap-4 w-full max-w-md mx-auto">

@@ -1,11 +1,12 @@
 import { supabase } from "@/backend/client";
 import Header from "@/components/admin/Header";
-import { ChartComponent } from "@/components/ChartComponent";
 import { LineGraph } from "@/components/LineGraph";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { addToLocalStorage, fetchLocalStorage } from "@/helpers/localStorage";
 import { createFileRoute } from "@tanstack/react-router";
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ChartComponent } from "@/components";
 
 export const Route = createFileRoute("/AdminDashboard")({
   component: () => <AdminDashboard />,
@@ -27,8 +28,8 @@ function CardComponent({ title, content }) {
 function AdminDashboard() {
   const [approved, setApproved] = useState("0");
   const [pending, setPending] = useState("0");
-  const [disapproved, setDisapproved] = useState("0"); // Initialize with 0
-  const [deleted, setDeleted] = useState("0"); // Initialize with 0
+  const [disapproved, setDisapproved] = useState("0");
+  const [deleted, setDeleted] = useState("0");
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -68,17 +69,46 @@ function AdminDashboard() {
       const inactiveCount = statusData.filter(
         (status) => status.status === "inactive"
       ).length;
+      const disapprovedCount = statusData.filter(
+        (status) => status.status === "deactivated"
+      ).length;
+      const deletedCount = statusData.filter(
+        (status) => status.status === "deleted"
+      ).length;
 
       // Update the counts
       setApproved(activeCount.toString());
       setPending(inactiveCount.toString());
+      setDisapproved(disapprovedCount.toString());
+      setDeleted(deletedCount.toString());
 
-      // Set disapproved and deleted counts to zero if not found
-      setDisapproved("0");
-      setDeleted("0");
+      // Add fetched data to localstorage
+      addToLocalStorage("activeCount", activeCount);
+      addToLocalStorage("inactiveCount", inactiveCount);
+      addToLocalStorage("disapprovedCount", disapprovedCount);
+      addToLocalStorage("deletedCount", deletedCount);
     };
 
-    fetchStatus();
+    async function fetchStatusFromLocalStorage(status: string){
+      const response = await fetchLocalStorage(status);
+      const data = await response
+      return data
+    }
+    
+    async function checkActiveCount(){
+      const activeCount = await fetchLocalStorage("activeCount");
+      console.log(activeCount);
+      
+      if (await activeCount === null) {
+        fetchStatus();
+      } else {
+        setApproved(await fetchStatusFromLocalStorage("activeCount"))
+        setPending(await fetchStatusFromLocalStorage("inactiveCount"));
+        setDisapproved(await fetchStatusFromLocalStorage("disapprovedCount"))
+        setDeleted(await fetchStatusFromLocalStorage("deletedCount"))
+      }
+    }
+    checkActiveCount()
   }, []);
 
   return (
@@ -111,7 +141,7 @@ function AdminDashboard() {
           ))}
         </div>
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="col-span-2">
+          <div className="col-span-2 h-full">
             <ChartComponent />
           </div>
           <LineGraph />
@@ -122,8 +152,9 @@ function AdminDashboard() {
 }
 
 const CardData = [
-  { title: "Approved", count: "10" },
-  { title: "Pending", count: "12" },
-  { title: "Disapproved", count: "0" }, // Default value set here
-  { title: "Deleted", count: "0" }, // Default value set here
+  { title: "Approved", count: "0" },
+  { title: "Pending", count: "0" },
+  { title: "Disapproved", count: "0" },
+  { title: "Deleted", count: "0" },
 ];
+
