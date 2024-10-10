@@ -1,4 +1,5 @@
 import { supabase } from "@/backend/client";
+import { ChartComponent } from "@/components";
 import Header from "@/components/admin/Header";
 import { LineGraph } from "@/components/LineGraph";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +7,6 @@ import { addToLocalStorage, fetchLocalStorage } from "@/helpers/localStorage";
 import { createFileRoute } from "@tanstack/react-router";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { ChartComponent } from "@/components";
 
 export const Route = createFileRoute("/AdminDashboard")({
   component: () => <AdminDashboard />,
@@ -25,6 +25,16 @@ function CardComponent({ title, content }) {
   );
 }
 
+export async function Mentees() {
+  const { data, error } = await supabase.from("mentees").select("*");
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
 function AdminDashboard() {
   const [approved, setApproved] = useState("0");
   const [pending, setPending] = useState("0");
@@ -33,21 +43,12 @@ function AdminDashboard() {
 
   useEffect(() => {
     const fetchStatus = async () => {
-      const { data: dramaData, error: dramaError } = await supabase
-        .from("drama_instructor")
-        .select("status");
+      const data = await Mentees();
 
-      const { data: danceData, error: danceError } = await supabase
-        .from("dance_instructor")
-        .select("status");
-
-      const { data: artData, error: artError } = await supabase
-        .from("art_instructor")
-        .select("status");
-
-      const { data: musicData, error: musicError } = await supabase
-        .from("music_instructor")
-        .select("status");
+      const dramaData = data.filter((mentee) => mentee.skill_group === "drama");
+      const danceData = data.filter((mentee) => mentee.skill_group === "dance");
+      const artData = data.filter((mentee) => mentee.skill_group === "art");
+      const musicData = data.filter((mentee) => mentee.skill_group === "slumfootie");
 
       // Join all data together
       const statusData = [
@@ -57,23 +58,18 @@ function AdminDashboard() {
         ...(musicData || []),
       ];
 
-      if (dramaError || danceError || artError || musicError) {
-        console.log(dramaError || danceError || artError || musicError);
-        return;
-      }
-
       const activeCount = statusData.filter(
-        (status) => status.status === "active"
+        (status) => status.status === "Active"
       ).length;
 
       const inactiveCount = statusData.filter(
-        (status) => status.status === "inactive"
+        (status) => status.status === "Inactive"
       ).length;
       const disapprovedCount = statusData.filter(
-        (status) => status.status === "deactivated"
+        (status) => status.status === "Disapproved"
       ).length;
       const deletedCount = statusData.filter(
-        (status) => status.status === "deleted"
+        (status) => status.status === "Deleted"
       ).length;
 
       // Update the counts

@@ -1,7 +1,7 @@
 "use client";
 
-import { Area, AreaChart, CartesianGrid, XAxis, Tooltip } from "recharts";
 import * as React from "react";
+import { Area, AreaChart, CartesianGrid, Tooltip, XAxis } from "recharts";
 
 import {
   Card,
@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { supabase } from "@/backend/client";
 import { useEffect, useState } from "react";
@@ -35,10 +36,29 @@ const chartConfig = {
   },
 };
 
+// Helper function to convert date to "YYYY-MM" format for monthly grouping
+const formatDateToMonthYear = (date) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = (d.getMonth() + 1).toString().padStart(2, "0");
+  return `${year}-${month}`;
+};
+export async function Mentees() {
+  const { data, error } = await supabase.from("mentees").select("*");
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
+
 export function ChartComponent() {
   const [chartData, setChartData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+ 
 
   useEffect(() => {
     const fetchChartData = async () => {
@@ -46,66 +66,47 @@ export function ChartComponent() {
         setLoading(true);
         setError(null);
 
-        const [dramaData, danceData, artData, slumfootieData] =
-          await Promise.all([
-            supabase.from("drama_instructor").select("created_on"),
-            supabase.from("dance_instructor").select("created_on"),
-            supabase.from("art_instructor").select("created_on"),
-            supabase.from("slumfootie_instructor").select("created_on"),
-          ]);
+        const data = await Mentees();
 
-        // Handle errors for each fetch
-        if (
-          dramaData.error ||
-          danceData.error ||
-          artData.error ||
-          slumfootieData.error
-        ) {
-          throw new Error(
-            dramaData.error?.message ||
-              danceData.error?.message ||
-              artData.error?.message ||
-              slumfootieData.error?.message
-          );
-        }
-
-        // Function to count occurrences of each date
         const countOccurrences = (data) => {
           return data.reduce((acc, { created_on }) => {
-            const date = new Date(created_on).toISOString().split("T")[0]; // Convert to YYYY-MM-DD
-            acc[date] = (acc[date] || 0) + 1;
+            const monthYear = formatDateToMonthYear(created_on);
+            acc[monthYear] = (acc[monthYear] || 0) + 1;
             return acc;
           }, {});
         };
 
-        // Count occurrences for each category
-        const dramaCounts = countOccurrences(dramaData.data);
-        const danceCounts = countOccurrences(danceData.data);
-        const artCounts = countOccurrences(artData.data);
-        const slumfootieCounts = countOccurrences(slumfootieData.data);
+        const skillGroups = ["drama", "dance", "art", "slumfootie"];
+        const countsBySkillGroup = skillGroups.reduce((acc, skill) => {
+          acc[skill] = countOccurrences(
+            data.filter((mentee) => mentee.skill_group === skill)
+          );
+          return acc;
+        }, { drama: {}, dance: {}, art: {}, slumfootie: {} });
 
-        // Combine counts into the desired format
-        const allDates = new Set([
+        const dramaCounts = countsBySkillGroup.drama;
+        const danceCounts = countsBySkillGroup.dance;
+        const artCounts = countsBySkillGroup.art;
+        const slumfootieCounts = countsBySkillGroup.slumfootie;
+
+        const allMonths = new Set([
           ...Object.keys(dramaCounts),
           ...Object.keys(danceCounts),
           ...Object.keys(artCounts),
           ...Object.keys(slumfootieCounts),
         ]);
 
-        const combinedCounts = Array.from(allDates).map((date) => ({
-          month: date,
-          drama: dramaCounts[date] || 0,
-          dance: danceCounts[date] || 0,
-          art: artCounts[date] || 0,
-          slumfootie: slumfootieCounts[date] || 0,
+        const combinedCounts = Array.from(allMonths).map((month) => ({
+          month,
+          drama: dramaCounts[month] || 0,
+          dance: danceCounts[month] || 0,
+          art: artCounts[month] || 0,
+          slumfootie: slumfootieCounts[month] || 0,
         }));
 
-        // Sort the combined counts by date
         const sortedCounts = combinedCounts.sort(
-          (a, b) => new Date(a.month) - new Date(b.month)
+          (a, b) => new Date(a.month).getTime() - new Date(b.month).getTime()
         );
-
-        // Set the state with sorted counts
         setChartData(sortedCounts);
       } catch (error) {
         setError(error.message);
@@ -117,26 +118,34 @@ export function ChartComponent() {
     fetchChartData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+
+  if (loading) return <Skeleton className="w-full h-full rounded-md" />;
   if (error) return <div>Error: {error}</div>;
   if (chartData.length === 0) return <div>No data available.</div>;
 
   return (
     <Card className="h-max shadow-none border-none bg-slate-50">
       <CardHeader>
-        <CardTitle>Mentees' Progress Over Time</CardTitle>
+        <CardTitle>Mentees' Enrollment Over Time</CardTitle>
         <CardDescription>
-          Showing total participants in each field for the last 6 months
+          Showing total participants in each field, aggregated monthly
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer className="aspect-auto h-[300px] xl:h-[200px] 2xl:h-[250px] w-full" config={chartConfig}>
+        <ChartContainer
+          className="aspect-auto h-[300px] xl:h-[200px] 2xl:h-[250px] w-full"
+          config={chartConfig}
+        >
           <AreaChart
             data={chartData}
             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
           >
             <CartesianGrid vertical={false} />
-            <XAxis dataKey="month" />
+            <XAxis
+              dataKey="month"
+              tickFormatter={(month) => month.slice(0, 7)}
+            />{" "}
+            {/* Displays month as YYYY-MM */}
             <Tooltip content={<ChartTooltipContent />} />
             <defs>
               <linearGradient id="fillArt" x1="0" y1="0" x2="0" y2="1">
