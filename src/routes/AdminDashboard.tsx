@@ -7,6 +7,7 @@ import { addToLocalStorage, fetchLocalStorage } from "@/helpers/localStorage";
 import { createFileRoute } from "@tanstack/react-router";
 import * as React from "react";
 import { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Route = createFileRoute("/AdminDashboard")({
   component: () => <AdminDashboard />,
@@ -48,7 +49,9 @@ function AdminDashboard() {
       const dramaData = data.filter((mentee) => mentee.skill_group === "drama");
       const danceData = data.filter((mentee) => mentee.skill_group === "dance");
       const artData = data.filter((mentee) => mentee.skill_group === "art");
-      const musicData = data.filter((mentee) => mentee.skill_group === "slumfootie");
+      const musicData = data.filter(
+        (mentee) => mentee.skill_group === "slumfootie"
+      );
 
       // Join all data together
       const statusData = [
@@ -85,26 +88,25 @@ function AdminDashboard() {
       addToLocalStorage("deletedCount", deletedCount);
     };
 
-    async function fetchStatusFromLocalStorage(status: string){
+    async function fetchStatusFromLocalStorage(status: string) {
       const response = await fetchLocalStorage(status);
-      const data = await response
-      return data
+      const data = await response;
+      return data;
     }
-    
-    async function checkActiveCount(){
+
+    async function checkActiveCount() {
       const activeCount = await fetchLocalStorage("activeCount");
-      console.log(activeCount);
-      
-      if (await activeCount === null) {
+
+      if ((await activeCount) === null) {
         fetchStatus();
       } else {
-        setApproved(await fetchStatusFromLocalStorage("activeCount"))
+        setApproved(await fetchStatusFromLocalStorage("activeCount"));
         setPending(await fetchStatusFromLocalStorage("inactiveCount"));
-        setDisapproved(await fetchStatusFromLocalStorage("disapprovedCount"))
-        setDeleted(await fetchStatusFromLocalStorage("deletedCount"))
+        setDisapproved(await fetchStatusFromLocalStorage("disapprovedCount"));
+        setDeleted(await fetchStatusFromLocalStorage("deletedCount"));
       }
     }
-    checkActiveCount()
+    checkActiveCount();
   }, []);
 
   return (
@@ -122,15 +124,25 @@ function AdminDashboard() {
               <CardComponent
                 title={data.title}
                 content={
-                  data.title === "Approved"
-                    ? approved
-                    : data.title === "Pending"
-                      ? pending
-                      : data.title === "Disapproved"
-                        ? disapproved
-                        : data.title === "Deleted"
-                          ? deleted
-                          : "0"
+                  data.title === "Approved" && approved === "0" ? (
+                    <Skeleton className="w-full h-4 rounded-md" />
+                  ) : data.title === "Pending" && pending === "0" ? (
+                    <Skeleton className="w-full h-4 rounded-md" />
+                  ) : data.title === "Disapproved" && disapproved === "0" ? (
+                    <Skeleton className="w-full h-4 rounded-md" />
+                  ) : data.title === "Deleted" && deleted === "0" ? (
+                    <Skeleton className="w-full h-4 rounded-md" />
+                  ) : data.title === "Approved" ? (
+                    approved
+                  ) : data.title === "Pending" ? (
+                    pending
+                  ) : data.title === "Disapproved" ? (
+                    disapproved
+                  ) : data.title === "Deleted" ? (
+                    deleted
+                  ) : (
+                    "0"
+                  )
                 }
               />
             </React.Fragment>
