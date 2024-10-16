@@ -31,23 +31,23 @@ const chartData = [
 
 const chartConfig = {
   visitors: {
-    label: "Visitors",
+    label: "Approved Applications",
     color: "hsl(var(--chart-2))",
   },
   chrome: {
-    label: "Chrome",
+    label: "Pending Applications",
     color: "hsl(var(--chart-1))",
   },
   safari: {
-    label: "Safari",
+    label: "Disapproved Applications",
     color: "hsl(var(--chart-2))",
   },
   firefox: {
-    label: "Firefox",
+    label: "Deleted Applications",
     color: "hsl(var(--chart-3))",
   },
   edge: {
-    label: "Edge",
+    label: "Total Enrollment",
     color: "hsl(var(--chart-4))",
   },
   other: {
@@ -60,7 +60,7 @@ export function LineGraph() {
   return (
     <Card className="h-max shadow-none border-none bg-slate-50">
       <CardHeader>
-        <CardTitle>Line Chart - Dots Colors</CardTitle>
+        <CardTitle>Monthly stats</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>

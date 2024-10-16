@@ -12,7 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, ChevronDown, CornerDownLeft, MoreHorizontal } from "lucide-react";
 import * as React from "react";
 
 import { supabase } from "@/backend/client";
@@ -52,6 +52,25 @@ export type Instructor = {
   date_of_birth: string;
 };
 
+async function handleActivate(event, status, user_id) {
+  // Call your backend API to activate the instructor
+  const newStatus = status === "active" ? "inactive" : "active";
+  console.log(`New status: ${newStatus} Previous status: ${status}`);
+  console.log(user_id)
+  const { data, error } = await supabase
+    .from("mentees")
+    .update({ status: newStatus})
+    .eq("mentee_id", user_id);
+  if(error) {
+    console.error(error)
+  } else {
+    console.log(data)
+  }
+}
+
+async function handleDeactivate(event): void {
+  console.log(event)
+}
 
 export const columns: ColumnDef<Instructor>[] = [
   {
@@ -157,14 +176,21 @@ export const columns: ColumnDef<Instructor>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(instructor.email)}
-            >
-              Copy email
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View instructor</DropdownMenuItem>
-            <DropdownMenuItem>View details</DropdownMenuItem>
+            <DropdownMenuItem>
+              <button
+                onClick={() =>
+                  handleActivate(
+                    row,
+                    row.getValue("status"),
+                    row.getValue("mentee_id")
+                  )
+                }
+              >
+                Activate
+              </button>
+            </DropdownMenuItem>
+            <DropdownMenuItem>Deactivate</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
