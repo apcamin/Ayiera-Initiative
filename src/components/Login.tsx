@@ -47,7 +47,7 @@ function Login({title = "Welcome Back"}) {
       }
       if(user[0].Password === password) {
         console.log("User authenticated successfully")
-        window.location.href = "/dashboard"
+        window.location.href = "/adminDashboard"
         return
       }
       toast({

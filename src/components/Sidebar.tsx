@@ -25,7 +25,7 @@ const SideBarComponents = ({ trigger }) => {
           <Logo src={AILOGO} />
           <section className="flex flex-col gap-6">
             <p className="text-sm text-gray-600">Navigation</p>
-            <Link to="/dashboard" className="flex gap-2">
+            <Link to="/adminDashboard" className="flex gap-2">
               <img src={dashboard_icon} alt="" />
               Dashboard
             </Link>
