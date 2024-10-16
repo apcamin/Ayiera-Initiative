@@ -2,12 +2,13 @@ import { ChartComponent } from "@/components/ChartComponent";
 import Header from '@/components/Header';
 import { LineGraph } from "@/components/LineGraph";
 import { Badge } from "@/components/ui/badge";
+import { addToLocalStorage, fetchLocalStorage } from "@/helpers/localStorage";
 import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { createFileRoute } from '@tanstack/react-router';
 import * as React from "react";

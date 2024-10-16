@@ -15,7 +15,7 @@ export function AdminLoginPage() {
           <Logo />
         </Link>
       </div>
-      <div className="h-max p-4 md:p-0 md:w-1/4">
+      <div className="h-max p-4 md:p-0 md:3/4 lg:w-1/4">
         <AdminLogin />
       </div>
     </div>

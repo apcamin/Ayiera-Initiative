@@ -3,7 +3,7 @@ import { ChartComponent } from "@/components";
 import Header from "@/components/admin/Header";
 import { LineGraph } from "@/components/LineGraph";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { addToLocalStorage, fetchLocalStorage } from "@/helpers/localStorage";
+import { addToLocalStorage, fetchLocalStorage } from "@/helpers/localstorage";
 import { createFileRoute } from "@tanstack/react-router";
 import * as React from "react";
 import { useEffect, useState } from "react";
