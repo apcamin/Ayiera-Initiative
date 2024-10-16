@@ -128,7 +128,7 @@ function AdminDashboard() {
         <h1 className="text-xl font-bold tracking-tight text-gray-900">
           Dashboard
         </h1>
-        <div className="grid md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {CardData.map((data) => (
             <React.Fragment key={data.title}>
               <CardComponent
