@@ -1,4 +1,4 @@
-export async function createCookie(key: string, value) {
+export async function createCookie(key: string, value: string) {
   sessionStorage.setItem(key, value);
 }
 

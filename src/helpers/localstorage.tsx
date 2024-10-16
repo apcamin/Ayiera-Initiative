@@ -1,4 +1,4 @@
-export async function addToLocalStorage(key: string, value){
+export async function addToLocalStorage(key: string, value: string){
     localStorage.setItem(key, value);
 }
 

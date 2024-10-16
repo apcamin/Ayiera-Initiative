@@ -8,6 +8,6 @@
         "skipLibCheck": true, // Skip type checking of declaration files
         "forceConsistentCasingInFileNames": true // Disallow inconsistently-cased references to the same file
     },
-    "include": ["src/**/*.ts", "src/components/Projects.tsx"], // Include all TypeScript files in the src directory
+    "include": ["src/**/*.ts", "src/components/Projects.tsx", "src/helpers/localstorage.tsx", "src/helpers/sessionstorage.tsx"], // Include all TypeScript files in the src directory
     "exclude": ["node_modules"] // Exclude the node_modules directory
 }
