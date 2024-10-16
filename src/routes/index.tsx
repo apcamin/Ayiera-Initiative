@@ -1,12 +1,19 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import * as React from 'react'
-import {Footer, SupportUs, Projects, Founders, LandingPage} from '@/components'
-import {LoginPage} from "@/routes/LoginPage"
+import {
+  Footer,
+  Founders,
+  LandingPage,
+  Projects,
+  SupportUs,
+} from "@/components";
+import AdminLogin from "@/components/AdminLogin";
+import { createFileRoute } from "@tanstack/react-router";
+import * as React from "react";
+import {AdminLoginPage} from "@/routes/AdminLoginPage";
 
 export const Route = createFileRoute("/")({
   component: () => (
     <>
-      <HomePage />
+      <AdminLoginPage />
     </>
   ),
 });

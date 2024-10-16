@@ -7,7 +7,7 @@ import {supabase} from "@/backend/client.js"
 import { useToast } from "@/hooks/use-toast";
 
 
-export async function onSubmit(values: z.infer<typeof formSchema>) {
+export async function validateUser(values: z.infer<typeof formSchema>) {
     const { toast } = useToast()
 
     const email = values.email

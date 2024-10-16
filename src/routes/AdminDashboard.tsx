@@ -8,6 +8,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { fetchCookie } from "@/helpers/sessionstorage";
 
 export const Route = createFileRoute("/AdminDashboard")({
   component: () => <AdminDashboard />,
@@ -36,7 +37,16 @@ export async function Mentees() {
   return data;
 }
 
+async function checkLoginStatus(){
+  const cookieValue = await fetchCookie("isLoggedIn");
+  if(cookieValue === null || cookieValue === undefined || cookieValue === "false"){
+    window.location.replace("/")
+  }
+}
+
 function AdminDashboard() {
+  const LoginStatus = checkLoginStatus();
+  
   const [approved, setApproved] = useState("0");
   const [pending, setPending] = useState("0");
   const [disapproved, setDisapproved] = useState("0");

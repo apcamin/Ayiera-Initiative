@@ -14,6 +14,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Logo from "@/components/ui/logo";
 import Sidebar from "@/components/admin/Sidebar";
+import { removeCookie } from "@/helpers/sessionstorage";
+
+function Logout() {
+  removeCookie("isLoggedIn");
+  window.location.replace("/");
+}
 
 const DropDownMenu = ({ trigger }) => {
   return (
@@ -23,7 +29,9 @@ const DropDownMenu = ({ trigger }) => {
         <DropdownMenuLabel>Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <button className="text-red-600">Logout &rarr;</button>
+          <button className="text-red-600" onClick={Logout}>
+            Logout &rarr;
+          </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

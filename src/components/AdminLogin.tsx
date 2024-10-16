@@ -1,22 +1,25 @@
-import * as React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import formSchema from "@/schemas/formSchema.jsx";
+import { supabase } from "@/backend/client";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link } from "@tanstack/react-router";
-
+import formSchema from "@/schemas/formSchema.jsx";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as React from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "./ui/toaster";
+import { createCookie } from "@/helpers/sessionstorage";
 function AdminLogin() {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -25,14 +28,47 @@ function AdminLogin() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const email = values.email;
+    const password = values.password;
+
+    const { data: user, error } = await supabase
+      .from("administrator")
+      .select("*");
+    if (error) {
+      console.error(error);
+    } else {
+      if (user[0].Email !== email) {
+        toast({
+          variant: "destructive",
+          title: "User or Password not found",
+          description: "Please try again.",
+          duration: 3000,
+        });
+        return;
+      }
+      if (user[0].Password === password) {
+        createCookie("isLoggedIn", true)
+        console.log("User authenticated successfully");
+        window.location.href = "/adminDashboard";
+        return;
+      }
+      toast({
+        variant: "destructive",
+        title: "User or Password not found",
+        description: "Please try again.",
+        duration: 3000,
+      });
+    }
   }
 
   return (
     <Form {...form}>
       <div className="grid gap-6">
-        <p className="text-4xl font-bold text-slate-800">Administrator Sign-In</p>
+        <Toaster />
+        <p className="text-4xl font-bold text-slate-800">
+          Administrator Sign-In
+        </p>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
             control={form.control}
@@ -72,7 +108,7 @@ function AdminLogin() {
           <Button type="submit" className="bg-green-800 w-full h-12">
             Login and continue
           </Button>
-        </form>        
+        </form>
       </div>
     </Form>
   );

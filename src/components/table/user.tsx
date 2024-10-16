@@ -39,8 +39,8 @@ import {
 
 export type Instructor = {
   d_instructorid: number;
-  fname: string;
-  lname: string;
+  first_name: string;
+  last_name: string;
   gender: "Male" | "Female";
   email: string;
   password: string;
@@ -48,7 +48,7 @@ export type Instructor = {
   address: string;
   status: "active" | "inactive";
   created_on: string;
-  dateofbirth: string;
+  date_of_birth: string;
 };
 
 
@@ -76,17 +76,17 @@ export const columns: ColumnDef<Instructor>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "fname",
+    accessorKey: "first_name",
     header: "First Name",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("fname")}</div>
+      <div className="capitalize">{row.getValue("first_name")}</div>
     ),
   },
   {
-    accessorKey: "lname",
+    accessorKey: "last_name",
     header: "Last Name",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("lname")}</div>
+      <div className="capitalize">{row.getValue("last_name")}</div>
     ),
   },
   {
@@ -134,10 +134,10 @@ export const columns: ColumnDef<Instructor>[] = [
     ),
   },
   {
-    accessorKey: "dateofbirth",
+    accessorKey: "date_of_birth",
     header: "Date of Birth",
     cell: ({ row }) => (
-      <div>{new Date(row.getValue("dateofbirth")).toLocaleDateString()}</div>
+      <div>{new Date(row.getValue("date_of_birth")).toLocaleDateString()}</div>
     ),
   },
   {
@@ -174,31 +174,9 @@ export const columns: ColumnDef<Instructor>[] = [
 
 
 async function fetchUsers() {
-  const { data: dramaData, error: dramaError } = await supabase
-    .from("drama_instructor")
-    .select("*");
+  const { data } = await supabase.from("mentees").select("*");
 
-  const { data: danceData, error: danceError } = await supabase
-    .from("dance_instructor")
-    .select("*");
-
-  const { data: artData, error: artError } = await supabase
-    .from("art_instructor")
-    .select("*");
-
-  const { data: musicData, error: musicError } = await supabase
-    .from("music_instructor")
-    .select("*");
-
-  const allUsers = [
-    ...(dramaData || []),
-    ...(danceData || []),
-    ...(artData || []),
-    ...(musicData || []),
-  ];
-  console.log(allUsers);
-
-  return allUsers;
+  return data;
 }
 
 fetchUsers();
