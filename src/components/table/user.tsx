@@ -36,6 +36,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Skeleton } from "../ui/skeleton";
 
 export type Instructor = {
   d_instructorid: number;
@@ -299,7 +300,12 @@ export function UserTable() {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                   <div className="grid gap-2">
+                    <Skeleton className="w-full h-10" />
+                    <Skeleton className="w-full h-10" />
+                    <Skeleton className="w-full h-10" />
+                    <Skeleton className="w-full h-10" />
+                  </div>
                 </TableCell>
               </TableRow>
             )}
