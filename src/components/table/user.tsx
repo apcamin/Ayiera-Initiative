@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import * as React from "react";
 import {
   ColumnDef,
   SortingState,
@@ -36,7 +36,6 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { flexRender } from "@tanstack/react-table";
-
 // Define the type for instructors.
 export type Instructor = {
   d_instructorid: number;
@@ -97,28 +96,6 @@ export function UserTable() {
   // Define table columns.
   const columns: ColumnDef<Instructor>[] = [
     {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
-    {
       accessorKey: "first_name",
       header: "First Name",
       cell: ({ row }) => (
@@ -133,16 +110,8 @@ export function UserTable() {
       ),
     },
     {
-      accessorKey: "email",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      ),
+      accessorKey: "guardian_id",
+      header: "Guardian Email",
       cell: ({ row }) => {
         const guardianId = row.getValue<number>("guardian_id");
         return (
@@ -151,80 +120,11 @@ export function UserTable() {
       },
     },
     {
-      accessorKey: "gender",
-      header: "Gender",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("gender")}</div>
-      ),
-    },
-    {
-      accessorKey: "phone",
-      header: "Phone",
-      cell: ({ row }) => <div>{row.getValue("phone")}</div>,
-    },
-    {
-      accessorKey: "address",
-      header: "Address",
-      cell: ({ row }) => <div>{row.getValue("address")}</div>,
-    },
-    {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue("status")}</div>
       ),
-    },
-    {
-      accessorKey: "created_on",
-      header: "Created On",
-      cell: ({ row }) => (
-        <div>{new Date(row.getValue("created_on")).toLocaleDateString()}</div>
-      ),
-    },
-    {
-      accessorKey: "date_of_birth",
-      header: "Date of Birth",
-      cell: ({ row }) => (
-        <div>
-          {new Date(row.getValue("date_of_birth")).toLocaleDateString()}
-        </div>
-      ),
-    },
-    {
-      id: "actions",
-      enableHiding: false,
-      cell: ({ row }) => {
-        const instructor = row.original;
-
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <button
-                  onClick={() =>
-                    handleActivate(
-                      row,
-                      row.getValue("status"),
-                      row.getValue("mentee_id")
-                    )
-                  }
-                >
-                  Activate
-                </button>
-              </DropdownMenuItem>
-              <DropdownMenuItem>Deactivate</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        );
-      },
     },
   ];
 
